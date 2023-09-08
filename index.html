@@ -108,7 +108,11 @@ html {
 		
     
     start() {
-	https://script.google.com/macros/s/AKfycbxmli_mi1BPTe4HzR4Ty8ALrfjy9Ejv66pu_DDEJnUt/dev?roomid=A1&status=start
+
+	    var xmlHttp = new XMLHttpRequest();
+	    xmlHttp.open("GET","https://script.google.com/macros/s/AKfycbxmli_mi1BPTe4HzR4Ty8ALrfjy9Ejv66pu_DDEJnUt/dev?roomid=A1&status=start",false);
+	    
+
         if (!this.time) this.time = performance.now();
         if (!this.running) {
             this.running = true;
@@ -118,15 +122,16 @@ html {
     }
     
     stop() {
-	https://script.google.com/macros/s/AKfycbxmli_mi1BPTe4HzR4Ty8ALrfjy9Ejv66pu_DDEJnUt/dev?roomid=A1&status=stop
+	var xmlHttp = new XMLHttpRequest();
+	    xmlHttp.open("GET","https://script.google.com/macros/s/AKfycbxmli_mi1BPTe4HzR4Ty8ALrfjy9Ejv66pu_DDEJnUt/dev?roomid=A1&status=stop",false);
         this.running = false;
         this.time = null;
         //google.script.run.userClicked([roomid, "paused"]);
     }
 
     restart() {
-https://script.google.com/macros/s/AKfycbxmli_mi1BPTe4HzR4Ty8ALrfjy9Ejv66pu_DDEJnUt/dev?roomid=A1&status=restart
-        //google.script.run.userClicked([roomid, "restart"]);
+var xmlHttp = new XMLHttpRequest();
+	    xmlHttp.open("GET","https://script.google.com/macros/s/AKfycbxmli_mi1BPTe4HzR4Ty8ALrfjy9Ejv66pu_DDEJnUt/dev?roomid=A1&status=restart",false);
         location.reload();
     }
     
