@@ -68,7 +68,7 @@ html {
 	</script>
 
 <nav class="controls">
-			<a href="#" class="button" id="roomid"></a>
+			<b><a class="button" id="roomid" style="color: #ddd"></a></b>
 			<a href="#" class="button" onClick="stopwatch.start();">Start</a>
 			<a href="#" class="button" onClick="stopwatch.stop();">Pause</a>
 			<a href="#" class="button" onClick="stopwatch.restart();">Reset</a>
@@ -77,14 +77,13 @@ html {
 		<div class="results">7 minutes substantive speech. Short bell rings at 1st and 6th minute. Long bell rings at 7th minute.<br>Side project of Andree Chandra.</div>
 
 <script>
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const roomid = urlParams.get('roomid');
+    var queryString = window.location.search;
+    var urlParams = new URLSearchParams(queryString);
+    var roomid = urlParams.get('roomid');
 
-    document.getElementById("birthdate").innerHTML = roomid;
-</script>
+    document.getElementById("roomid").innerHTML = roomid;
 
-<script>
+
 	var notification = new Audio("https://themushroomkingdom.net/sounds/wav/sm64/sm64_coin.wav");
 	var notification2 = new Audio("https://themushroomkingdom.net/sounds/wav/sm64/sm64_blue_coin.wav");
 	var flag1 = true;
@@ -108,12 +107,8 @@ html {
 		
     
     start() {
-
-	    var xmlHttp = new XMLHttpRequest();
-	    xmlHttp.open("GET","https://script.google.com/macros/s/AKfycbxmli_mi1BPTe4HzR4Ty8ALrfjy9Ejv66pu_DDEJnUt/dev?roomid=A1&status=start",false);
-	    
-
-        if (!this.time) this.time = performance.now();
+        logRequest("start");
+	    if (!this.time) this.time = performance.now();
         if (!this.running) {
             this.running = true;
             requestAnimationFrame(this.step.bind(this));
@@ -122,16 +117,13 @@ html {
     }
     
     stop() {
-	var xmlHttp = new XMLHttpRequest();
-	    xmlHttp.open("GET","https://script.google.com/macros/s/AKfycbxmli_mi1BPTe4HzR4Ty8ALrfjy9Ejv66pu_DDEJnUt/dev?roomid=A1&status=stop",false);
+        logRequest("pause");
         this.running = false;
         this.time = null;
-        //google.script.run.userClicked([roomid, "paused"]);
     }
 
     restart() {
-var xmlHttp = new XMLHttpRequest();
-	    xmlHttp.open("GET","https://script.google.com/macros/s/AKfycbxmli_mi1BPTe4HzR4Ty8ALrfjy9Ejv66pu_DDEJnUt/dev?roomid=A1&status=restart",false);
+        logRequest("restart");
         location.reload();
     }
     
@@ -195,6 +187,16 @@ var xmlHttp = new XMLHttpRequest();
 ${pad0(times[0], 2)}:\
 ${pad0(times[1], 2)}`;
     }
+}
+
+function logRequest(value) {
+    var i = document.createElement("img");
+    i.src =`https://script.google.com/macros/s/AKfycbxmli_mi1BPTe4HzR4Ty8ALrfjy9Ejv66pu_DDEJnUt/dev?roomid=${roomid}&status=${value}`;
+    
+    //var Http = new XMLHttpRequest();
+    //var url=`https://script.google.com/macros/s/AKfycbxmli_mi1BPTe4HzR4Ty8ALrfjy9Ejv66pu_DDEJnUt/dev?roomid=${roomid}&status=${value}`;
+    //Http.open("GET", url);
+    //Http.send();
 }
 
 function pad0(value, count) {
